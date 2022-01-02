@@ -1,0 +1,14 @@
+BasedOnStyle: Google
+AccessModifierOffset: 0
+AlignConsecutiveMacros: true
+AlignConsecutiveAssignments: Consecutive
+AlignTrailingComments: true
+AllowShortFunctionsOnASingleLine: Empty
+BinPackArguments: false
+ColumnLimit: 0
+EmptyLineBeforeAccessModifier: Always
+IncludeBlocks: Regroup
+IndentWidth: 4
+PointerAlignment: Left
+ReferenceAlignment: Left
+SortIncludes: CaseInsensitive
