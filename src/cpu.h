@@ -55,7 +55,7 @@ typedef enum {
     SIGN_FLAG     = 1 << 31   // N flag
 } CPSR_BIT_FLAGS;
 
-typedef enum {
+typedef enum class ARM_INSTRUCTION{
     ADC,
     ADD,
     AND,
@@ -92,6 +92,44 @@ typedef enum {
     TST,
     NO_MATCH
 } ARM_INSTRUCTION;
+
+typedef enum class THUMB_INSTRUCTION{
+    ADC,
+    ADD,
+    AND,
+    B,
+    BXX,
+    BIC,
+    BL,
+    BX,
+    CMN,
+    CMP,
+    EOR,
+    LDMIA,
+    LDR,
+    LDRB,
+    LDRH,
+    LSL,
+    LDSB,
+    LDSH,
+    LSR,
+    MOV,
+    MUL,
+    MVN,
+    NEG,
+    ORR,
+    POP,
+    PUSH,
+    ROR,
+    SBC,
+    STMIA,
+    STR,
+    STRB,
+    STRH,
+    SWI,
+    SUB,
+    TST
+} THUMB_INSTRUCTION;
 
 class CPU {
     private:

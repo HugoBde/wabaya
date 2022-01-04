@@ -74,176 +74,176 @@ void CPU::execute_ARM(word instruction) {
     check_condition(static_cast<INSTRUCTION_CONDITION>(instruction >> 28));
     switch (decode_arm_instruction(instruction)) {
         default:
-        case ADC:
+        case ARM_INSTRUCTION::ADC:
             // do something
             break;
-        case ADD:
+        case ARM_INSTRUCTION::ADD:
             // do something
             break;
-        case AND:
+        case ARM_INSTRUCTION::AND:
             // do something
             break;
-        case B:
+        case ARM_INSTRUCTION::B:
             // do something
             break;
-        case BIC:
+        case ARM_INSTRUCTION::BIC:
             // do something
             break;
-        case BL:
+        case ARM_INSTRUCTION::BL:
             // do something
             break;
-        case BX:
+        case ARM_INSTRUCTION::BX:
             // do something
             break;
-        case CDP:
+        case ARM_INSTRUCTION::CDP:
             // do something
             break;
-        case CMN:
+        case ARM_INSTRUCTION::CMN:
             // do something
             break;
-        case CMP:
+        case ARM_INSTRUCTION::CMP:
             // do something
             break;
-        case EOR:
+        case ARM_INSTRUCTION::EOR:
             // do something
             break;
-        case LDC:
+        case ARM_INSTRUCTION::LDC:
             // do something
             break;
-        case LDM:
+        case ARM_INSTRUCTION::LDM:
             // do something
             break;
-        case LDR:
+        case ARM_INSTRUCTION::LDR:
             // do something
             break;
-        case MCR:
+        case ARM_INSTRUCTION::MCR:
             // do something
             break;
-        case MLA:
+        case ARM_INSTRUCTION::MLA:
             // do something
             break;
-        case MOV:
+        case ARM_INSTRUCTION::MOV:
             // do something
             break;
-        case MRC:
+        case ARM_INSTRUCTION::MRC:
             // do something
             break;
-        case MRS:
+        case ARM_INSTRUCTION::MRS:
             // do something
             break;
-        case MSR:
+        case ARM_INSTRUCTION::MSR:
             // do something
             break;
-        case MUL:
+        case ARM_INSTRUCTION::MUL:
             // do something
             break;
-        case MVN:
+        case ARM_INSTRUCTION::MVN:
             // do something
             break;
-        case ORR:
+        case ARM_INSTRUCTION::ORR:
             // do something
             break;
-        case RSB:
+        case ARM_INSTRUCTION::RSB:
             // do something
             break;
-        case RSC:
+        case ARM_INSTRUCTION::RSC:
             // do something
             break;
-        case SBC:
+        case ARM_INSTRUCTION::SBC:
             // do something
             break;
-        case STC:
+        case ARM_INSTRUCTION::STC:
             // do something
             break;
-        case STM:
+        case ARM_INSTRUCTION::STM:
             // do something
             break;
-        case STR:
+        case ARM_INSTRUCTION::STR:
             // do something
             break;
-        case SUB:
+        case ARM_INSTRUCTION::SUB:
             // do something
             break;
-        case SWI:
+        case ARM_INSTRUCTION::SWI:
             // do something
             break;
-        case SWP:
+        case ARM_INSTRUCTION::SWP:
             // do something
             break;
-        case TEQ:
+        case ARM_INSTRUCTION::TEQ:
             // do something
             break;
-        case TST:
+        case ARM_INSTRUCTION::TST:
             // do something
             break;
-        case NO_MATCH:
+        case ARM_INSTRUCTION::NO_MATCH:
             // do something
             break;
     }
 }
 
 ARM_INSTRUCTION CPU::decode_arm_instruction(word instruction) {
-    if ((instruction & 0x0F000000) == 0x0F000000) return SWI;
-    if ((instruction & 0x0F100010) == 0x0E100010) return MRC;
-    if ((instruction & 0x0F100010) == 0x0E000010) return MCR;
-    if ((instruction & 0x0F000010) == 0x0E000000) return CDP;
-    if ((instruction & 0x0E100000) == 0x0C100000) return LDC;
-    if ((instruction & 0x0E100000) == 0x0C000000) return STC;
-    if ((instruction & 0x0F000000) == 0x0B000000) return BL;
-    if ((instruction & 0x0F000000) == 0x0A000000) return B;
-    if ((instruction & 0x0E100000) == 0x08100000) return LDM;
-    if ((instruction & 0x0E100000) == 0x08000000) return STM;
+    if ((instruction & 0x0F000000) == 0x0F000000) return ARM_INSTRUCTION::SWI;
+    if ((instruction & 0x0F100010) == 0x0E100010) return ARM_INSTRUCTION::MRC;
+    if ((instruction & 0x0F100010) == 0x0E000010) return ARM_INSTRUCTION::MCR;
+    if ((instruction & 0x0F000010) == 0x0E000000) return ARM_INSTRUCTION::CDP;
+    if ((instruction & 0x0E100000) == 0x0C100000) return ARM_INSTRUCTION::LDC;
+    if ((instruction & 0x0E100000) == 0x0C000000) return ARM_INSTRUCTION::STC;
+    if ((instruction & 0x0F000000) == 0x0B000000) return ARM_INSTRUCTION::BL;
+    if ((instruction & 0x0F000000) == 0x0A000000) return ARM_INSTRUCTION::B;
+    if ((instruction & 0x0E100000) == 0x08100000) return ARM_INSTRUCTION::LDM;
+    if ((instruction & 0x0E100000) == 0x08000000) return ARM_INSTRUCTION::STM;
     // implement undefined instruction trap maybe
-    if ((instruction & 0x0C100000) == 0x04100000) return LDR;
-    if ((instruction & 0x0C100000) == 0x04000000) return STR;
+    if ((instruction & 0x0C100000) == 0x04100000) return ARM_INSTRUCTION::LDR;
+    if ((instruction & 0x0C100000) == 0x04000000) return ARM_INSTRUCTION::STR;
     // skipped halfword data transfers as documentation is lacking
-    if ((instruction & 0x0FFFFFF0) == 0x012FFF10) return BX;
-    if ((instruction & 0x0FB00FF0) == 0x01000090) return SWP;
+    if ((instruction & 0x0FFFFFF0) == 0x012FFF10) return ARM_INSTRUCTION::BX;
+    if ((instruction & 0x0FB00FF0) == 0x01000090) return ARM_INSTRUCTION::SWP;
     // if ((instruction & 0x0FA000F0) == 0x00A00090) return MLAL; // maybe add MLAL to enum of ARM Instructions
     // if ((instruction & 0x0FA000F0) == 0x00800090) return MULL; // maybe add MLAL to enum of ARM Instructions
-    if ((instruction & 0x0FE000F0) == 0x00200090) return MLA;
-    if ((instruction & 0x0FE000F0) == 0x00000090) return MUL;
+    if ((instruction & 0x0FE000F0) == 0x00200090) return ARM_INSTRUCTION::MLA;
+    if ((instruction & 0x0FE000F0) == 0x00000090) return ARM_INSTRUCTION::MUL;
     if ((instruction & 0x0A000000) == 0x00000000) {  // data processing
         switch (instruction >> 21 & 0xF) {
             case 0x0:
-                return AND;
+                return ARM_INSTRUCTION::AND;
             case 0x1:
-                return EOR;
+                return ARM_INSTRUCTION::EOR;
             case 0x2:
-                return SUB;
+                return ARM_INSTRUCTION::SUB;
             case 0x3:
-                return RSB;
+                return ARM_INSTRUCTION::RSB;
             case 0x4:
-                return ADD;
+                return ARM_INSTRUCTION::ADD;
             case 0x5:
-                return ADC;
+                return ARM_INSTRUCTION::ADC;
             case 0x6:
-                return SBC;
+                return ARM_INSTRUCTION::SBC;
             case 0x7:
-                return RSC;
+                return ARM_INSTRUCTION::RSC;
             case 0x8:
-                return TST;
+                return ARM_INSTRUCTION::TST;
             case 0x9:
-                return TEQ;
+                return ARM_INSTRUCTION::TEQ;
             case 0xA:
-                return CMP;
+                return ARM_INSTRUCTION::CMP;
             case 0xB:
-                return CMN;
+                return ARM_INSTRUCTION::CMN;
             case 0xC:
-                return ORR;
+                return ARM_INSTRUCTION::ORR;
             case 0xD:
-                return MOV;
+                return ARM_INSTRUCTION::MOV;
             case 0xE:
-                return BIC;
+                return ARM_INSTRUCTION::BIC;
             case 0xF:
-                return MVN;
+                return ARM_INSTRUCTION::MVN;
         }
     }
-    if ((instruction & 0x0FBF0FFF) == 0x010F0000) return MRS;
-    if ((instruction & 0x0FBFFFF0) == 0x0129F000) return MSR;
-    if ((instruction & 0x0DBFF000) == 0x0128F000) return MSR;
+    if ((instruction & 0x0FBF0FFF) == 0x010F0000) return ARM_INSTRUCTION::MRS;
+    if ((instruction & 0x0FBFFFF0) == 0x0129F000) return ARM_INSTRUCTION::MSR;
+    if ((instruction & 0x0DBFF000) == 0x0128F000) return ARM_INSTRUCTION::MSR;
     log_error("Could not match ARM instruction");
-    return NO_MATCH;
+    return ARM_INSTRUCTION::NO_MATCH;
 }
 
 void CPU::execute_THUMB(halfword instruction) {}
