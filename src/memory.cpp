@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <iostream>
+#include "utils.h"
 
 Memory::Memory() {
     sys_rom  = new byte[0x4000];
@@ -51,6 +52,64 @@ byte Memory::operator[](const size_t index) {
         return pak_rom[index - PAK_ROM_WAIT_STATE_2_START];
     } else if (CART_ROM_START <= index && index <= CART_ROM_END) {
         return cart_rom[index - CART_ROM_START];
+    } else {
+        log_error("Accessing invalid memory address");
+        return 0;
+    }
+}
+
+word Memory::get_word(const size_t index) {
+    if (SYS_ROM_START <= index && index <= SYS_ROM_END) {
+        return reinterpret_cast<word*>(sys_rom)[index - SYS_ROM_START];
+    } else if (EWRAM_START <= index && index <= EWRAM_END) {
+        return reinterpret_cast<word*>(ewram)[index - EWRAM_START];
+    } else if (IWRAM_START <= index && index <= IWRAM_END) {
+        return reinterpret_cast<word*>(iwram)[index - IWRAM_START];
+    } else if (IO_RAM_START <= index && index <= IO_RAM_END) {
+        return reinterpret_cast<word*>(io_ram)[index - IO_RAM_START];
+    } else if (PAL_RAM_START <= index && index <= PAL_RAM_END) {
+        return reinterpret_cast<word*>(pal_ram)[index - PAL_RAM_START];
+    } else if (VRAM_START <= index && index <= VRAM_END) {
+        return reinterpret_cast<word*>(vram)[index - VRAM_START];
+    } else if (OAM_START <= index && index <= OAM_END) {
+        return reinterpret_cast<word*>(oam)[index - OAM_START];
+    } else if (PAK_ROM_WAIT_STATE_0_START <= index && index <= PAK_ROM_WAIT_STATE_0_END) {
+        return reinterpret_cast<word*>(pak_rom)[index - PAK_ROM_WAIT_STATE_0_START];
+    } else if (PAK_ROM_WAIT_STATE_1_START <= index && index <= PAK_ROM_WAIT_STATE_1_END) {
+        return reinterpret_cast<word*>(pak_rom)[index - PAK_ROM_WAIT_STATE_1_START];
+    } else if (PAK_ROM_WAIT_STATE_2_START <= index && index <= PAK_ROM_WAIT_STATE_2_END) {
+        return reinterpret_cast<word*>(pak_rom)[index - PAK_ROM_WAIT_STATE_2_START];
+    } else if (CART_ROM_START <= index && index <= CART_ROM_END) {
+        return reinterpret_cast<word*>(cart_rom)[index - CART_ROM_START];
+    } else {
+        log_error("Accessing invalid memory address");
+        return 0;
+    }
+}
+
+halfword Memory::get_halfword(const size_t index) {
+    if (SYS_ROM_START <= index && index <= SYS_ROM_END) {
+        return reinterpret_cast<halfword*>(sys_rom)[index - SYS_ROM_START];
+    } else if (EWRAM_START <= index && index <= EWRAM_END) {
+        return reinterpret_cast<halfword*>(ewram)[index - EWRAM_START];
+    } else if (IWRAM_START <= index && index <= IWRAM_END) {
+        return reinterpret_cast<halfword*>(iwram)[index - IWRAM_START];
+    } else if (IO_RAM_START <= index && index <= IO_RAM_END) {
+        return reinterpret_cast<halfword*>(io_ram)[index - IO_RAM_START];
+    } else if (PAL_RAM_START <= index && index <= PAL_RAM_END) {
+        return reinterpret_cast<halfword*>(pal_ram)[index - PAL_RAM_START];
+    } else if (VRAM_START <= index && index <= VRAM_END) {
+        return reinterpret_cast<halfword*>(vram)[index - VRAM_START];
+    } else if (OAM_START <= index && index <= OAM_END) {
+        return reinterpret_cast<halfword*>(oam)[index - OAM_START];
+    } else if (PAK_ROM_WAIT_STATE_0_START <= index && index <= PAK_ROM_WAIT_STATE_0_END) {
+        return reinterpret_cast<halfword*>(pak_rom)[index - PAK_ROM_WAIT_STATE_0_START];
+    } else if (PAK_ROM_WAIT_STATE_1_START <= index && index <= PAK_ROM_WAIT_STATE_1_END) {
+        return reinterpret_cast<halfword*>(pak_rom)[index - PAK_ROM_WAIT_STATE_1_START];
+    } else if (PAK_ROM_WAIT_STATE_2_START <= index && index <= PAK_ROM_WAIT_STATE_2_END) {
+        return reinterpret_cast<halfword*>(pak_rom)[index - PAK_ROM_WAIT_STATE_2_START];
+    } else if (CART_ROM_START <= index && index <= CART_ROM_END) {
+        return reinterpret_cast<halfword*>(cart_rom)[index - CART_ROM_START];
     } else {
         log_error("Accessing invalid memory address");
         return 0;

@@ -45,6 +45,8 @@ class Memory {
     Memory();
     ~Memory();
     byte operator[](const size_t index);
+    word get_word(const size_t index);
+    halfword get_halfword(const size_t index);
     bool load_game(std::string filename);
     friend std::ostream &operator<<(std::ostream &os, const Memory &mem);
 };
