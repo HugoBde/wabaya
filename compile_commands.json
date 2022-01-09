@@ -1,0 +1,77 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-std=c++17",
+      "-o",
+      "obj/main.o",
+      "src/main.cpp"
+    ],
+    "directory": "/home/bde/Documents/Programming/CPP/wabaya",
+    "file": "/home/bde/Documents/Programming/CPP/wabaya/src/main.cpp",
+    "output": "/home/bde/Documents/Programming/CPP/wabaya/obj/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-std=c++17",
+      "-o",
+      "obj/utils.o",
+      "src/utils.cpp"
+    ],
+    "directory": "/home/bde/Documents/Programming/CPP/wabaya",
+    "file": "/home/bde/Documents/Programming/CPP/wabaya/src/utils.cpp",
+    "output": "/home/bde/Documents/Programming/CPP/wabaya/obj/utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-std=c++17",
+      "-o",
+      "obj/emulator.o",
+      "src/emulator.cpp"
+    ],
+    "directory": "/home/bde/Documents/Programming/CPP/wabaya",
+    "file": "/home/bde/Documents/Programming/CPP/wabaya/src/emulator.cpp",
+    "output": "/home/bde/Documents/Programming/CPP/wabaya/obj/emulator.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-std=c++17",
+      "-o",
+      "obj/memory.o",
+      "src/memory.cpp"
+    ],
+    "directory": "/home/bde/Documents/Programming/CPP/wabaya",
+    "file": "/home/bde/Documents/Programming/CPP/wabaya/src/memory.cpp",
+    "output": "/home/bde/Documents/Programming/CPP/wabaya/obj/memory.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-Wextra",
+      "-std=c++17",
+      "-o",
+      "obj/cpu.o",
+      "src/cpu.cpp"
+    ],
+    "directory": "/home/bde/Documents/Programming/CPP/wabaya",
+    "file": "/home/bde/Documents/Programming/CPP/wabaya/src/cpu.cpp",
+    "output": "/home/bde/Documents/Programming/CPP/wabaya/obj/cpu.o"
+  }
+]

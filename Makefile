@@ -1,7 +1,7 @@
 CC = clang++
 LIBS = 
 INCLUDES = 
-FLAGS = -Wall -Wextra
+FLAGS = -Wall -Wextra -std=c++17
 BIN = bin/main
 OBJS = obj/main.o obj/utils.o obj/emulator.o obj/memory.o obj/cpu.o
 

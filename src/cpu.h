@@ -97,6 +97,7 @@ typedef enum class ARM_INSTRUCTION {
 #endif
 } ARM_INSTRUCTION;
 
+
 typedef enum class THUMB_INSTRUCTION {
     ADC,
     ADD,
@@ -142,21 +143,6 @@ class CPU {
     CPU_STATE state;
     CPU_OPERATING_MODE mode;
 
-    /*
-    word registers[16];
-    word FIQ_banked_registers[7];  // FIQ_banked_registers[n] is register R(N+8) for FIQ
-    word SVC_banked_registers[2];  // All following banked registers are R(N+13) for their corresponding op mode
-    word ABT_banked_registers[2];
-    word IRQ_banked_registers[2];
-    word UND_banked_registers[2];
-    word CPSR;
-    word SPSR_FIQ;
-    word SPSR_SVC;
-    word SPSR_ABT;
-    word SPSR_IRQ;
-    word SPSR_UND;
-    */
-
     word r0;
     word r1;
     word r2;
@@ -196,7 +182,7 @@ class CPU {
     word irq_SPSR;
     word und_SPSR;
 
-    word* r[6][16] = {
+    word* reg[6][16] = {
         {&r0, &r1, &r2, &r3, &r4, &r5, &r6, &r7, &r8, &r9, &r10, &r11, &r12, &r13, &r14, &r15},                              // usr
         {&r0, &r1, &r2, &r3, &r4, &r5, &r6, &r7, &fiq_r8, &fiq_r9, &fiq_r10, &fiq_r11, &fiq_r12, &fiq_r13, &fiq_r14, &r15},  // fiq
         {&r0, &r1, &r2, &r3, &r4, &r5, &r6, &r7, &r8, &r9, &r10, &r11, &r12, &svc_r13, &svc_r14, &r15},                      // svc
@@ -205,11 +191,22 @@ class CPU {
         {&r0, &r1, &r2, &r3, &r4, &r5, &r6, &r7, &r8, &r9, &r10, &r11, &r12, &und_r13, &und_r14, &r15}                       // und
     };
 
+    word* PSR[6] {
+        &CPSR,
+        &fiq_SPSR,
+        &svc_SPSR,
+        &abt_SPSR,
+        &irq_SPSR,
+        &und_SPSR
+    };
+
     word& PC = r15;
 
     Memory& mem;
 
     public:
+    typedef void (CPU::* ARM_OP)(word);
+    typedef void (CPU::* THUMB_OP)(halfword);
     CPU(Memory& mem);
     ~CPU();
     void run();
@@ -221,22 +218,7 @@ class CPU {
     void arm_branch_exchange(word instruction);
     void arm_branch(word instruction);
     void arm_branch_link(word instruction);
-    void arm_and(word instruction);
-    void arm_edor(word instruction);
-    void arm_sub(word instruction);
-    void arm_reverse_sub(word instruction);
-    void arm_add(word instruction);
-    void arm_add_carry(word instruction);
-    void arm_sub_carry(word instruction);
-    void arm_reverse_sub_carry(word instruction);
-    void arm_test_bits(word instruction);
-    void arm_test_bitwise_equality(word instruction);
-    void arm_compare(word instruction);
-    void arm_compare_negative(word instruction);
-    void arm_or(word instruction);
-    void arm_mov(word instruction);
-    void arm_bit_clear(word instruction);
-    void arm_mov_negative(word instruction);
+    void arm_data_processing(word instruction);
     void arm_mov_psr_reg(word instruction);
     void arm_mov_reg_psr(word instruction);
     void arm_multiply(word instruction);
@@ -253,8 +235,8 @@ class CPU {
     void arm_load_multiple(word instruction);
     void arm_single_data_swap(word instruction);
     void arm_software_interrupt(word instruction);
-    static ARM_INSTRUCTION decode_arm_instruction(word instruction);
-    static THUMB_INSTRUCTION decode_thumb_instruction(word instruction);
+    ARM_OP decode_arm_instruction(word instruction);
+    THUMB_OP decode_thumb_instruction(word instruction);
 };
 
 #endif

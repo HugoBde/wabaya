@@ -7,3 +7,6 @@
 REWORK DATA PROCESSING INSTRUCTIONS:
     - repeated logic, no need to separate all different asm instructions into separate functions
     - centralise operand handling logic
+
+REWORKING CPU INSTRUCTION DECODING:
+
